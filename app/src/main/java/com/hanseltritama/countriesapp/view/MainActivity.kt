@@ -1,7 +1,8 @@
-package com.hanseltritama.countriesapp
+package com.hanseltritama.countriesapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.hanseltritama.countriesapp.R
 
 class MainActivity : AppCompatActivity() {
 
