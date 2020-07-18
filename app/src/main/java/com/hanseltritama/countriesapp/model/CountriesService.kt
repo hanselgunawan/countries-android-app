@@ -1,17 +1,23 @@
 package com.hanseltritama.countriesapp.model
 
-import com.hanseltritama.countriesapp.di.DaggerAPIComponent
 import io.reactivex.Single
-import javax.inject.Inject
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 // This service is used to retrieve information from backend
 class CountriesService {
 
-    @Inject
-    lateinit var api: CountriesAPI
+    private val BASE_URL = "https://raw.githubusercontent.com"
+    private val api: CountriesAPI
 
     init {
-        DaggerAPIComponent.create().inject(this)
+        api = Retrofit.Builder() // creates the framework from Retrofit
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()) // transform JSON into GSON or Kotlin code
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // transform GSON to Observable
+            .build() // build retrofit system
+            .create(CountriesAPI::class.java) // return type
     }
 
     fun getCountries(): Single<List<Country>> {
