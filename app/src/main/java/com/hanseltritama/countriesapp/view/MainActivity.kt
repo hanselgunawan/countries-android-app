@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         // whenever countries is updated, it will get notified
         viewModel.countries.observe(this, Observer {countries ->
             countries?.let {
+                countriesList.visibility = View.VISIBLE
                 countriesAdapter.updateCountries(it)
             }
         })
