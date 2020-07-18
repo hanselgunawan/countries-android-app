@@ -29,6 +29,12 @@ class MainActivity : AppCompatActivity() {
             adapter = countriesAdapter
         }
 
+        swipeRefreshLayout.setOnRefreshListener {
+            // remove spinner after we let go the screen
+            swipeRefreshLayout.isRefreshing = false
+            viewModel.refresh()
+        }
+
         // connecting Activity to ViewModel
         observeViewModel()
     }
