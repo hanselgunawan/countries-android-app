@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hanseltritama.countriesapp.R
 import com.hanseltritama.countriesapp.model.Country
+import com.hanseltritama.countriesapp.util.getProgressDrawable
+import com.hanseltritama.countriesapp.util.loadImage
 import kotlinx.android.synthetic.main.item_country.view.*
 
 class CountryListAdapter(var countries: ArrayList<Country>) : RecyclerView.Adapter<CountryListAdapter.CountryViewHolder>() {
@@ -29,11 +31,18 @@ class CountryListAdapter(var countries: ArrayList<Country>) : RecyclerView.Adapt
 
     class CountryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+        private val imageView = view.imageView
         private val countryName = view.name
+        private val countryCapital = view.capital
+
+        // to display progress bar inside the image when it's being loaded
+        private val progressDrawable = getProgressDrawable(view.context)
 
         fun bind(country: Country) {
 
             countryName.text = country.countryName
+            countryCapital.text = country.capitalName
+            imageView.loadImage(country.flag, progressDrawable)
 
         }
 
