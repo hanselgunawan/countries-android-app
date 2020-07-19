@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hanseltritama.countriesapp.R
@@ -22,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
         // instantiating ViewModel
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
-        viewModel.refresh()
 
         countriesList.apply {
             layoutManager = LinearLayoutManager(context)
@@ -32,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         swipeRefreshLayout.setOnRefreshListener {
             // remove spinner after we let go the screen
             swipeRefreshLayout.isRefreshing = false
-            viewModel.refresh()
         }
 
         // connecting Activity to ViewModel
@@ -42,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     fun observeViewModel() {
 
         // whenever countries is updated, it will get notified
-        viewModel.countries.observe(this, Observer {countries ->
+        viewModel.mCountry.observe(this, Observer {countries ->
             countries?.let {
                 countriesList.visibility = View.VISIBLE
                 countriesAdapter.updateCountries(it)

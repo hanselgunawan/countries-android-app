@@ -1,7 +1,10 @@
 package com.hanseltritama.countriesapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import com.hanseltritama.countriesapp.model.CountriesRepository
 import com.hanseltritama.countriesapp.model.CountriesService
 import com.hanseltritama.countriesapp.model.Country
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -9,55 +12,19 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
 
 class ListViewModel : ViewModel() {
 
-    private val countriesService = CountriesService()
-
-    // clear connection when ViewModel is closed
-    private val disposable = CompositeDisposable()
-
-    val countries = MutableLiveData<List<Country>>()
-
-    // error handling when loading the data
+    private val repository: CountriesRepository = CountriesRepository()
+    val loading = MutableLiveData<Boolean>()
     val countryLoadError = MutableLiveData<Boolean>()
 
-    // check if ViewModel is loading the data
-    val loading = MutableLiveData<Boolean>()
-
-    fun refresh() {
-
-        fetchCountries()
-
-    }
-
-    // we don't want to expose the function that does the functionality
-    // this is the logic where refresh actually happens
-    private fun fetchCountries() {
-        loading.value = true
-        disposable.add(
-            countriesService.getCountries() // call countries service
-            .subscribeOn(Schedulers.newThread()) // run observable on background thread
-            .observeOn(AndroidSchedulers.mainThread()) // the thread that the user sees
-            .subscribeWith(object: DisposableSingleObserver<List<Country>>() {
-                override fun onSuccess(value: List<Country>?) {
-                    countries.value = value
-                    countryLoadError.value = false
-                    loading.value = false
-                }
-
-                override fun onError(e: Throwable?) {
-                    countryLoadError.value = true
-                    loading.value = false
-                }
-
-            })
-        )
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        disposable.clear()
+    val mCountry: LiveData<List<Country>> = liveData(Dispatchers.IO) {
+        val retrievedCountry = repository.getCountries()
+        emit(retrievedCountry)
+        loading.postValue(false)
+        countryLoadError.postValue(false)
     }
 
 }
