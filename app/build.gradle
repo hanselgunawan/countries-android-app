@@ -26,10 +26,10 @@ android {
 def lifeCycleExtensionsVersion = '1.1.1'
 def supportVersion = '28.0.0'
 def retrofitVersion = '2.6.0'
-def daggerVersion = '2.13'
 def glideVersion = '4.8.0'
 def mockitoVersion = '2.11.0'
-def rxJavaVersion = '2.0.1'
+def liveDataLifeCycleVersion = '2.2.0'
+def coroutinesVersion = '1.3.2'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -40,21 +40,13 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
-
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-
     implementation "com.android.support:recyclerview-v7:$supportVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     implementation "com.android.support:appcompat-v7:$supportVersion"
 
     implementation "android.arch.lifecycle:extensions:$lifeCycleExtensionsVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$liveDataLifeCycleVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
