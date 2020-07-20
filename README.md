@@ -52,4 +52,3 @@ Country List is an app that displays a list of country around the globe. It disp
 
 ## User Interface
 <img src="https://i.imgur.com/MBZjc9w.png" width="400" height="700" />
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/jMB2UHJ"><a href="//imgur.com/a/jMB2UHJ"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
