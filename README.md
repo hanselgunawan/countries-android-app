@@ -12,39 +12,23 @@ Country List is an app that displays a list of country around the globe. It disp
  
 ## Dependencies
 
-### General Dependencies
-
-#### Retrofit
+### Retrofit
 
  * `def retrofitVersion = '2.3.0'`
  * `implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"`
  * `implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"`
  * `implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"`
  
-#### Glide
+### Glide
 
  * `def glideVersion = '4.8.0'`
  * `implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"`
-
-### RxJava Version
  
-#### RxJava
+### RxJava
 
  * `def rxJavaVersion = '2.0.1'`
  * `implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"`
  * `implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"`
-
-### Coroutines Version
- 
-#### Coroutines
-
- * `def coroutinesVersion = '1.3.2'`
- * `implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"`
- 
-#### LiveData Coroutines Scope
-
- * `def liveDataLifeCycleVersion = '2.2.0'`
- * `implementation "androidx.lifecycle:lifecycle-livedata-ktx:$liveDataLifeCycleVersion"`
  
 ## API
 
