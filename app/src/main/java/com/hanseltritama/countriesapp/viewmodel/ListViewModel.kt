@@ -1,12 +1,12 @@
 package com.hanseltritama.countriesapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hanseltritama.countriesapp.model.CountriesService
 import com.hanseltritama.countriesapp.model.Country
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
@@ -27,6 +27,7 @@ class ListViewModel : ViewModel() {
 
     fun refresh() {
 
+        Log.d("CONFIG", "Fetching Countries")
         fetchCountries()
 
     }
@@ -40,13 +41,12 @@ class ListViewModel : ViewModel() {
             .subscribeOn(Schedulers.newThread()) // run observable on background thread
             .observeOn(AndroidSchedulers.mainThread()) // the thread that the user sees
             .subscribeWith(object: DisposableSingleObserver<List<Country>>() {
-                override fun onSuccess(value: List<Country>?) {
+                override fun onSuccess(value: List<Country>) {
                     countries.value = value
                     countryLoadError.value = false
                     loading.value = false
                 }
-
-                override fun onError(e: Throwable?) {
+                override fun onError(e: Throwable) {
                     countryLoadError.value = true
                     loading.value = false
                 }
